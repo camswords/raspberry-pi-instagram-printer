@@ -30,17 +30,17 @@ api = InstagramAPI(client_id=os.environ['INSTAGRAM_CLIENT_ID'], client_secret=os
 mostRecentId = 0
 url = ''
 previous_url = ''
-recent_media = api.tag_recent_media(1, mostRecentId, 'soccer')
 
 while True:
     try:
         sys.stdout.write('.')
         sys.stdout.flush()
+        recent_media = api.tag_recent_media(1, mostRecentId, 'soccer')
 
         for media in recent_media[0]:
             url = media.images['standard_resolution'].url
             mostRecentId = media.id
-
+            
             if (url != previous_url):
                 print "\n---received an image---"
                 print str(media.user)
