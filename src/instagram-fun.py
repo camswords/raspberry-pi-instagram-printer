@@ -4,11 +4,9 @@ import time
 
 api = InstagramAPI(client_id=os.environ['INSTAGRAM_CLIENT_ID'], client_secret=os.environ['INSTAGRAM_CLIENT_SECRET'])
 
-
 mostRecentId = 0
 url = ''
 previous_url = ''
-
 recent_media = api.tag_recent_media(1, mostRecentId, 'soccer')
 
 
