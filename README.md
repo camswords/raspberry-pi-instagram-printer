@@ -10,3 +10,8 @@
 1. Figure out your Pi's IP address on the network https://www.raspberrypi.org/documentation/troubleshooting/hardware/networking/ip-address.md
 1. ssh into your Pi: `ssh pi@[your ip address]`. When the password prompt appears, type `raspberry`
 1. Install the code using `sudo bash < <(curl https://raw.githubusercontent.com/camswords/raspberry-pi-instagram-printer/master/install.sh)`
+
+
+### Is it working? ###
+
+You can check the tags on instagram here: https://instagram.com/explore/tags/[tag-name]/
