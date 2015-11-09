@@ -14,7 +14,7 @@ def addToPrintQueue(url):
     if not pdf.err:
         pdf.dest.close()
         connection = cups.Connection()
-        printer = connection.getDefaultPrinter()
+        printer = connection.getDefault()
 
         if printer is None:
             print("failed to print as a default printer has not been set up in cups.")
