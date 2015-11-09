@@ -35,7 +35,8 @@ recent_media = api.tag_recent_media(1, mostRecentId, 'soccer')
 while True:
     try:
         sys.stdout.write('.')
-        
+        sys.stdout.flush()
+
         for media in recent_media[0]:
             url = media.images['standard_resolution'].url
             mostRecentId = media.id
