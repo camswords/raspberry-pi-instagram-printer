@@ -19,4 +19,5 @@ usermod -a -G lpadmin pi
 cp ./raspberry-pi-instagram-printer/files/etc/cups/cupsd.conf /etc/cups/cupsd.conf
 mkdir -p /usr/share/printer-definitions
 cp ./raspberry-pi-instagram-printer/files/usr/share/printer-definitions/canon-cp910.ppd /usr/share/printer-definitions
+lpadmin -x PDF
 /etc/init.d/cups restart

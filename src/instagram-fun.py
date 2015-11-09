@@ -32,10 +32,13 @@ previous_url = ''
 recent_media = api.tag_recent_media(1, mostRecentId, 'soccer')
 
 while True:
+    print "while true"
     try:
+        print "try get media"
         for media in recent_media[0]:
             url = media.images['standard_resolution'].url
             mostRecentId = media.id
+            print "got url"
 
             if (url != previous_url):
                 print "---received an image---"
@@ -50,4 +53,6 @@ while True:
         print e
 
     # lets not go mental, rate limit seems to be 5000 / hr. (5 secs = 720 requests per hr)
+    print "abt to sleep"
     time.sleep(5)
+    print "sleep done"
