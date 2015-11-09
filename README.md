@@ -15,3 +15,22 @@
 ### Is it working? ###
 
 You can check the tags on instagram here: https://instagram.com/explore/tags/[tag-name]/
+
+### Printers ###
+
+### References ###
+See https://docs.oracle.com/cd/E23824_01/html/821-1451/gllgm.html
+
+#### add a printer ####
+`/usr/sbin/lpadmin -p printer-name -E -v device -m ppd`
+p Specifies the name of the printer to add.
+E Enables the destination and accepts jobs.
+v Sets the device-uri attribute of the print queue.
+m Sets the PPD file for the printer from the model directory or by using one of the driver interfaces.
+
+eg. To add an HP LaserJet printer LaserJet by using a JetDirect network interface with the IP address 10.1.1.1, you would type the following command:
+
+$ /usr/sbin/lpadmin -p LaserJet -E -v socket://10.1.1.1 -m laserjet.ppd
+
+#### What printers are available ####
+`lpstat -p -d`
