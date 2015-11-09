@@ -3,6 +3,7 @@ import os
 import time
 import cups
 from xhtml2pdf import pisa
+import sys
 
 # Note this is heavily inspired from https://nicshackle.wordpress.com/2014/04/09/hashtag-activated-instagram-printer/
 
@@ -32,27 +33,25 @@ previous_url = ''
 recent_media = api.tag_recent_media(1, mostRecentId, 'soccer')
 
 while True:
-    print "while true"
     try:
-        print "try get media"
+        sys.stdout.write('.')
+        
         for media in recent_media[0]:
             url = media.images['standard_resolution'].url
             mostRecentId = media.id
-            print "got url"
 
             if (url != previous_url):
-                print "---received an image---"
+                print "\n---received an image---"
                 print str(media.user)
                 print str(media.caption)
-                print "url: " + str(url) + "\n"
+                print "url: " + str(url)
                 previous_url = url
                 addToPrintQueue(url)
+                print "\n"
 
     except Exception, e:
         print "failed to retrieve recent media due to"
         print e
 
     # lets not go mental, rate limit seems to be 5000 / hr. (5 secs = 720 requests per hr)
-    print "abt to sleep"
     time.sleep(5)
-    print "sleep done"
