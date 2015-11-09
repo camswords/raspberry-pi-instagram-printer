@@ -11,9 +11,10 @@ git clone https://github.com/camswords/raspberry-pi-instagram-printer.git
 # install python modules
 apt-get install python-dev --assume-yes
 pip install python-instagram
+pip install xhtml2pdf
 
 # install cups
-apt-get install cups --assume-yes
+apt-get install cups cups-pdf python-cups --assume-yes
 usermod -a -G lpadmin pi
 cp ./raspberry-pi-instagram-printer/files/etc/cups/cupsd.conf /etc/cups/cupsd.conf
 mkdir -p /usr/share/printer-definitions
