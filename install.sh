@@ -16,7 +16,7 @@ pip install xhtml2pdf
 # install cups
 apt-get install cups cups-pdf python-cups --assume-yes
 usermod -a -G lpadmin pi
-cp ./raspberry-pi-instagram-printer/files/etc/cups/cupsd.conf /etc/cups/cupsd.conf
+#cp ./raspberry-pi-instagram-printer/files/etc/cups/cupsd.conf /etc/cups/cupsd.conf
 mkdir -p /usr/share/printer-definitions
 cp ./raspberry-pi-instagram-printer/files/usr/share/printer-definitions/canon-cp910.ppd /usr/share/printer-definitions
 lpadmin -x PDF
