@@ -17,10 +17,12 @@ def addToPrintQueue(url):
         connection = cups.Connection()
         printer = connection.getDefault()
 
-        if printer is None:
-            print("failed to print as a default printer has not been set up in cups.")
-        else:
-            connection.printFile(printer, "/tmp/instagram-print.pdf", "instagram", {})
+        printers = connection.getPrinters()
+        for printer in printers:
+            print printer, printers[printer]["device-uri"]
+            printer_name = printers.keys()[0] #use first printer in list
+
+            connection.printFile(printer_name, "/tmp/instagram-print.pdf", "instagram", {})
             print("added image document to print queue")
     else:
         print("failed to add image document to print queue")
@@ -40,7 +42,7 @@ while True:
         for media in recent_media[0]:
             url = media.images['standard_resolution'].url
             mostRecentId = media.id
-            
+
             if (url != previous_url):
                 print "\n---received an image---"
                 print str(media.user)
