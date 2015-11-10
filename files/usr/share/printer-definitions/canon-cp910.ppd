@@ -13,7 +13,6 @@
 *APAirPrint: True
 *cupsLanguages: "en"
 *cupsIdentifyActions: "flash"
-*APPrinterIconPath: "/Library/Printers/Icons/Canon CP910_ipp.icns"
 *APAcceptsMixedURF: True
 *PCFileName: "APCANONC.PPD"
 *Product: (Canon CP910_ipp)
@@ -32,8 +31,6 @@
 *ColorDevice: True
 *APColorSpaces: true
 *DefaultColorSpace: RGB
-*cupsICCProfile Gray../Grayscale: "/System/Library/ColorSync/Profiles/Generic Gray Gamma 2.2 Profile.icc"
-*cupsICCProfile RGB../Color: "/System/Library/ColorSync/Profiles/sRGB Profile.icc"
 *OpenUI *ColorModel/Color Mode: PickOne
 *OrderDependency: 10 AnySetup *ColorModel
 *DefaultColorModel: RGB
