@@ -9,7 +9,7 @@ apt-get install git --assume-yes
 git clone https://github.com/camswords/raspberry-pi-instagram-printer.git
 
 # install python modules
-apt-get install python-dev --assume-yes
+apt-get install python-dev python-pip --assume-yes
 pip install python-instagram
 pip install xhtml2pdf
 
