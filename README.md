@@ -10,7 +10,14 @@
 1. Figure out your Pi's IP address on the network https://www.raspberrypi.org/documentation/troubleshooting/hardware/networking/ip-address.md
 1. ssh into your Pi: `ssh pi@[your ip address]`. When the password prompt appears, type `raspberry`
 1. Install the code using `sudo bash < <(curl https://raw.githubusercontent.com/camswords/raspberry-pi-instagram-printer/master/install.sh)`
+1. On the Pi, type `vi ~/.profile`, go into insert mode using `i` and type the following
+`export INSTAGRAM_CLIENT_ID=[your instagram client id]
+ export INSTAGRAM_CLIENT_SECRET=[your instagram client secret]`
+Then hit `ESC`, then `:wq` and press `ENTER` to save the file.
+1. So you can use the environment variables from the previous step without a restart, type `source ~/.profile`.
 
+Note: if you dont have a instagram client id / secret, see http://instagram.com/developer.
+Note: this has been tested using 2015-09-24-raspbian-jessie.
 
 ### Is it working? ###
 
@@ -22,15 +29,15 @@ You can check the tags on instagram here: https://instagram.com/explore/tags/[ta
 See https://docs.oracle.com/cd/E23824_01/html/821-1451/gllgm.html
 
 #### add a printer ####
-`/usr/sbin/lpadmin -p printer-name -E -v device -m ppd`
+`lpadmin -p printer-name -E -v device -P path-to-ppd`
 p Specifies the name of the printer to add.
 E Enables the destination and accepts jobs.
 v Sets the device-uri attribute of the print queue.
 m Sets the PPD file for the printer from the model directory or by using one of the driver interfaces.
 
-eg. To add an HP LaserJet printer LaserJet by using a JetDirect network interface with the IP address 10.1.1.1, you would type the following command:
+eg. To add an a Canon Selphy 910 printer type the following command:
 
-$ /usr/sbin/lpadmin -p LaserJet -E -v socket://10.1.1.1 -m laserjet.ppd
+`lpadmin -p canon-selphy-910 -E -v socket://192.168.0.22 -P /usr/share/printer-definitions/canon-cp910.ppd`
 
 #### What printers are available ####
 `lpstat -p -d`

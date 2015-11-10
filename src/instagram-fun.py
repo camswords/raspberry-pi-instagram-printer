@@ -5,7 +5,6 @@ import cups
 from xhtml2pdf import pisa
 import sys
 from subprocess import call
-call(["ls", "-l"])
 
 # Note this is heavily inspired from https://nicshackle.wordpress.com/2014/04/09/hashtag-activated-instagram-printer/
 
@@ -14,7 +13,7 @@ def addToPrintQueue(url):
     html += '<p style="text-align:center"><img src="' + url + '" align="middle"></p>'
     pdf = pisa.CreatePDF(html, file("/tmp/instagram-print.pdf", "w"))
 
-    call["/usr/bin/pdftops", "/tmp/instagram-print.pdf", "/tmp/instagram-print.ps"]
+    call(["/usr/bin/pdftops", "/tmp/instagram-print.pdf", "/tmp/instagram-print.ps"])
     print "converted to ps file"
 
     if not pdf.err:
