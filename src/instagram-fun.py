@@ -4,6 +4,7 @@ import time
 import cups
 from xhtml2pdf import pisa
 import sys
+from subprocess import call
 
 # Note this is heavily inspired from https://nicshackle.wordpress.com/2014/04/09/hashtag-activated-instagram-printer/
 
@@ -11,6 +12,9 @@ def addToPrintQueue(url):
     html = '<h1 style="text-align:center">Your image:</h1>\n'
     html += '<p style="text-align:center"><img src="' + url + '" align="middle"></p>'
     pdf = pisa.CreatePDF(html, file("/tmp/instagram-print.pdf", "w"))
+
+    call(["/usr/bin/pdftops", "/tmp/instagram-print.pdf", "/tmp/instagram-print.ps"])
+    print "converted to ps file"
 
     if not pdf.err:
         pdf.dest.close()
@@ -22,7 +26,7 @@ def addToPrintQueue(url):
             print printer, printers[printer]["device-uri"]
             printer_name = printers.keys()[0] #use first printer in list
 
-            connection.printFile(printer_name, "/tmp/instagram-print.pdf", "instagram", {})
+            connection.printFile(printer_name, "/tmp/instagram-print.ps", "instagram", {})
             print("added image document to print queue")
     else:
         print("failed to add image document to print queue")
