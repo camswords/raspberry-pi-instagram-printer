@@ -16,13 +16,16 @@
   * `sudo vi /etc/wpa_supplicant/wpa_supplicant.conf`
   * Add a new section: `network={ ssid="testing" psk="testingPassword" }`, then save using `:wq`
   * `sudo ifdown wlan0`
-  * `sudo ifup wlan`
+  * `sudo ifup wlan0`
   * More info can be found at https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md
 
 #### Installation ####
 
-1. On the Pi, type `vi ~/.profile`, go into insert mode using `i` and type the following: `export INSTAGRAM_CLIENT_ID=[your instagram client id]`, and `export INSTAGRAM_CLIENT_SECRET=[your instagram client secret]`. Then hit `ESC`, then `:wq` and press `ENTER` to save the file.
-1. So you can use the environment variables from the previous step without a restart, type `source ~/.profile`.
+1. On the Pi, type `vi ~/.profile`, go into insert mode using `i` and type the following:
+  * `export INSTAGRAM_CLIENT_ID=[your instagram client id]`
+  * `export INSTAGRAM_CLIENT_SECRET=[your instagram client secret]`
+  * Then hit `ESC`, then `:wq` and press `ENTER` to save the file.
+1. So you can use the environment variables from the previous step without a restart, at the bash prompt type `source ~/.profile`.
 1. Install the code using `sudo bash < <(curl https://raw.githubusercontent.com/camswords/raspberry-pi-instagram-printer/master/install.sh)`
 
 Note: if you dont have a instagram client id / secret, see http://instagram.com/developer.
