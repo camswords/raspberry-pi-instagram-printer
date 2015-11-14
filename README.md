@@ -8,7 +8,9 @@
 1. Unzip the zip file, using p7zip if unzip can't do it (`brew install p7zip`, `7za x [filename]`)
 1. Install the image on to a Pi. Recommend if you have a mac: http://alltheware.wordpress.com/2012/12/11/easiest-way-sd-card-setup/
 1. Boot your Pi
-1. Figure out your Pi's IP address on the network https://www.raspberrypi.org/documentation/troubleshooting/hardware/networking/ip-address.md
+1. Figure out your Pi's IP address on the network
+  * Run a port scan on your network eg `nmap -sn 192.168.0.0/24`
+  * More info can be found at https://www.raspberrypi.org/documentation/troubleshooting/hardware/networking/ip-address.md
 1. ssh into your Pi: `ssh pi@[your ip address]`. When the password prompt appears, type `raspberry`
 1. If you need to configure your Pi for Wifi access, the on the Pi
   * `sudo vi /etc/wpa_supplicant/wpa_supplicant.conf`
