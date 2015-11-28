@@ -30,7 +30,7 @@
 
 Note: if you dont have a instagram client id / secret, see http://instagram.com/developer.
 
-Note: this has been tested using 2015-09-24-raspbian-jessie.
+Note: this has been tested using 2015-11-21-raspbian-jessie-lite.
 
 ### Is it working? ###
 
