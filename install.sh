@@ -56,13 +56,13 @@ make
 make install
 
 # copy configuration files for cups
-cp ./raspberry-pi-instagram-printer/files/etc/cups/cupsd.conf /etc/cups/cupsd.conf
+cp /home/pi/raspberry-pi-instagram-printer/files/etc/cups/cupsd.conf /etc/cups/cupsd.conf
 
 /etc/init.d/cups force-reload
 /etc/init.d/cups restart
 
 # set up the init.d script to start the instagram printing
-cp ./raspberry-pi-instagram-printer/files/etc/init.d/instagram-print /etc/init.d/instagram-print
+cp /home/pi/raspberry-pi-instagram-printer/files/etc/init.d/instagram-print /etc/init.d/instagram-print
 chmod 755 /etc/init.d/instagram-print
 
 # replace the instagram values with the ones the user has typed in.
@@ -71,10 +71,10 @@ sed -i "s/INSTAGRAM_CLIENT_SECRET_VALUE/$INSTAGRAM_CLIENT_SECRET/g" /etc/init.d/
 sed -i "s/INSTAGRAM_HASHTAG_VALUE/$INSTAGRAM_HASHTAG/g" /etc/init.d/instagram-print
 
 # ensure that the script starts when the raspberrypi boots
-sudo update-rc.d instagram-print defaults
+update-rc.d instagram-print defaults
 
 # start the service, in preparation for the user configuring their printer.
-sudo /etc/init.d/instagram-print start
+/etc/init.d/instagram-print start
 
 
 # Instructions
