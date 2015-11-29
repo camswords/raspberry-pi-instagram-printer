@@ -4,7 +4,7 @@
 
 #### Initial Pi setup ####
 
-1. Download the latest raspbian instance from https://www.raspberrypi.org/downloads/
+1. Download the latest raspbian instance from https://www.raspberrypi.org/downloads/ (recommend: 2015-11-21-raspbian-jessie-lite)
 1. Unzip the zip file, using p7zip if unzip can't do it (`brew install p7zip`, `7za x [filename]`)
 1. Install the image on to a Pi. Recommend if you have a mac: http://alltheware.wordpress.com/2012/12/11/easiest-way-sd-card-setup/
 1. Boot your Pi
@@ -28,7 +28,7 @@ For this to work, you will need your instagram client id, secret, and the hashta
 2. Make it executable `chmod +x install.sh`
 3. Execute it with root permissions `sudo ./install.sh`
 
-Note: this has been tested using 2015-11-21-raspbian-jessie-lite.
+This installation takes around an hour, largely because it needs to compile gutenprint.
 
 ### Is it working? ###
 
