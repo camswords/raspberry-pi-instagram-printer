@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 # as a first step, get the user to enter their instagram details
+echo "For the following, you will need your instagram details which can be found from http://instagram.com/developer/."
 echo "Please enter your instagram client id: "
 read INSTAGRAM_CLIENT_ID
 
@@ -24,6 +25,8 @@ if [ -z "$INSTAGRAM_HASHTAG" ]; then
     echo "Please enter a valid instagram hashtag to follow."
     exit 1
 fi
+
+echo "Thanks! Preparing to install. This takes around one hour."
 
 # install git, install code
 apt-get install git --assume-yes
@@ -78,7 +81,7 @@ sudo /etc/init.d/instagram-print start
 echo "\n\n"
 echo "Congratulations, your instagram printer has been configured. Next steps:"
 echo "1. Navigate to [your ip address]:693 in a web browser."
-echo "2. Install your printer of choice."
+echo "2. Install your printer of choice (make sure sharing is Yes)."
 echo "3. Make the printer the default system printer."
 echo "All things working, your printer should start printing the hashtags.\n"
 echo "Note: if configuring using USB, you may need to run the following:"
