@@ -24,7 +24,9 @@
 
 For this to work, you will need your instagram client id, secret, and the hashtag that you would like to follow / print. You can find / create these at http://instagram.com/developer.
 
-1. Install the code using `sudo bash < <(curl https://raw.githubusercontent.com/camswords/raspberry-pi-instagram-printer/master/install.sh)`
+1. Download the install file `wget https://raw.githubusercontent.com/camswords/raspberry-pi-instagram-printer/master/install.sh`.
+2. Make it executable `chmod +x install.sh`
+3. Execute it with root permissions `sudo ./install.sh`
 
 Note: this has been tested using 2015-11-21-raspbian-jessie-lite.
 
