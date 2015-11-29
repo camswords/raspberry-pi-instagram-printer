@@ -66,3 +66,25 @@ chmod 755 /etc/init.d/instagram-print
 sed -i "s/INSTAGRAM_CLIENT_ID_VALUE/$INSTAGRAM_CLIENT_ID/g" /etc/init.d/instagram-print
 sed -i "s/INSTAGRAM_CLIENT_SECRET_VALUE/$INSTAGRAM_CLIENT_SECRET/g" /etc/init.d/instagram-print
 sed -i "s/INSTAGRAM_HASHTAG_VALUE/$INSTAGRAM_HASHTAG/g" /etc/init.d/instagram-print
+
+# ensure that the script starts when the raspberrypi boots
+sudo update-rc.d instagram-print defaults
+
+# start the service, in preparation for the user configuring their printer.
+sudo /etc/init.d/instagram-print start
+
+
+# Instructions
+echo "\n\n"
+echo "Congratulations, your instagram printer has been configured. Next steps:"
+echo "1. Navigate to [your ip address]:693 in a web browser."
+echo "2. Install your printer of choice."
+echo "3. Make the printer the default system printer."
+echo "All things working, your printer should start printing the hashtags.\n"
+echo "Note: if configuring using USB, you may need to run the following:"
+echo "1. lpadmin -p [your printer name] -o usb-unidir-default=true"
+echo "2. lpadmin -p [your printer name] -o usb-no-reattach-default=true"
+echo "Note: you can change your instagram details by editing the /etc/init.d/instagram-print file."
+echo "Note: logs are found in /var/log/instagram-print.log and /var/log/instagram-print.err."
+echo "Note: you can control the service by running sudo /etc/init.d/instagram-print start|stop|restart.\n"
+echo "Enjoy!"
