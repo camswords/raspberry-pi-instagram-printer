@@ -29,7 +29,10 @@ make install
 
 # copy configuration files for printer
 cp /home/pi/raspberry-pi-instagram-printer/files/etc/cups/cupsd.conf /etc/cups/cupsd.conf
-cp /home/pi/raspberry-pi-instagram-printer/files/etc/cups/printers.conf /etc/cups/printers.conf
 
 /etc/init.d/cups restart
 /etc/init.d/cups force-reload
+
+# set up the init.d script to start the instagram printing
+cp /home/pi/raspberry-pi-instagram-printer/files/etc/init.d/instagram-print /etc/init.d/instagram-print
+chmod 755 /etc/init.d/instagram-print 
