@@ -1,5 +1,30 @@
 #!/usr/bin/env bash
 
+# as a first step, get the user to enter their instagram details
+echo "Please enter your instagram client id: "
+read INSTAGRAM_CLIENT_ID
+
+if [ -z "$INSTAGRAM_CLIENT_ID" ]; then
+    echo "Please enter a valid instagram client id."
+    exit 1
+fi
+
+echo "Please enter your instagram client secret: "
+read INSTAGRAM_CLIENT_SECRET
+
+if [ -z "$INSTAGRAM_CLIENT_SECRET" ]; then
+    echo "Please enter a valid instagram client secret."
+    exit 1
+fi
+
+echo "Please enter the instagram hashtag you would like to follow: "
+read INSTAGRAM_HASHTAG
+
+if [ -z "$INSTAGRAM_HASHTAG" ]; then
+    echo "Please enter a valid instagram hashtag to follow."
+    exit 1
+fi
+
 # install git, install code
 apt-get install git --assume-yes
 git clone https://github.com/camswords/raspberry-pi-instagram-printer.git
@@ -27,12 +52,17 @@ mkdir -p /usr/share/foomatic/db
 make
 make install
 
-# copy configuration files for printer
-cp /home/pi/raspberry-pi-instagram-printer/files/etc/cups/cupsd.conf /etc/cups/cupsd.conf
+# copy configuration files for cups
+cp ./raspberry-pi-instagram-printer/files/etc/cups/cupsd.conf /etc/cups/cupsd.conf
 
-/etc/init.d/cups restart
 /etc/init.d/cups force-reload
+/etc/init.d/cups restart
 
 # set up the init.d script to start the instagram printing
-cp /home/pi/raspberry-pi-instagram-printer/files/etc/init.d/instagram-print /etc/init.d/instagram-print
-chmod 755 /etc/init.d/instagram-print 
+cp ./raspberry-pi-instagram-printer/files/etc/init.d/instagram-print /etc/init.d/instagram-print
+chmod 755 /etc/init.d/instagram-print
+
+# replace the instagram values with the ones the user has typed in.
+sed -i "s/INSTAGRAM_CLIENT_ID_VALUE/$INSTAGRAM_CLIENT_ID/g" /etc/init.d/instagram-print
+sed -i "s/INSTAGRAM_CLIENT_SECRET_VALUE/$INSTAGRAM_CLIENT_SECRET/g" /etc/init.d/instagram-print
+sed -i "s/INSTAGRAM_HASHTAG_VALUE/$INSTAGRAM_HASHTAG/g" /etc/init.d/instagram-print

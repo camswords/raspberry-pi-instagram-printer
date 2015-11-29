@@ -18,6 +18,7 @@
   * `sudo ifdown wlan0`
   * `sudo ifup wlan0`
   * More info can be found at https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md
+1. Expand the file system and reboot using `sudo raspi-config`
 
 #### Installation ####
 

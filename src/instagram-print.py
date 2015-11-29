@@ -13,7 +13,7 @@ def addToPrintQueue(url):
         print "downloading..."
         check_call(["wget", url, "--quiet", "-O", "/tmp/image.jpg"])
         print "adding to print queue..."
-        check_call(["raspberry-pi-instagram-printer/src/send-file-to-default-printer.sh", "/tmp/image.jpg"])
+        check_call(["/home/pi/raspberry-pi-instagram-printer/src/send-file-to-default-printer.sh", "/tmp/image.jpg"])
         print "done."
 
         # it takes about a minute to print an image.
