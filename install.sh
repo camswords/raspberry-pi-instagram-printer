@@ -28,6 +28,8 @@ fi
 
 echo "Thanks! Preparing to install. This takes around one hour."
 
+apt-get update
+
 # install git, install code
 apt-get install git --assume-yes
 git clone https://github.com/camswords/raspberry-pi-instagram-printer.git
