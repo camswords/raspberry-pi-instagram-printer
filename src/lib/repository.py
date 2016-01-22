@@ -7,7 +7,7 @@ class Repository:
         directory = os.path.dirname(os.path.abspath(__file__))
         self.database = shelve.open(directory + "/../../database/database")
 
-    def hasKey(self, key):
+    def has_key(self, key):
         return self.database.has_key(key)
 
     def save(self, key, status):
