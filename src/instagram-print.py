@@ -29,6 +29,14 @@ def hasInternetConnectivity():
     except urllib2.URLError as err: pass
     return False
 
+def hasInternetConnectivity():
+    # from http://stackoverflow.com/questions/3764291/checking-network-connection
+    try:
+        response=urllib2.urlopen('http://74.125.228.100',timeout=1)
+        return True
+    except urllib2.URLError as err: pass
+    return False
+
 api = InstagramAPI(client_id=os.environ['INSTAGRAM_CLIENT_ID'], client_secret=os.environ['INSTAGRAM_CLIENT_SECRET'])
 
 mostRecentId = 0
@@ -39,6 +47,8 @@ while True:
     try:
         if (!hasInternetConnectivity()):
             print "skipping check for instagram media, no internet connection can be established."
+
+        clearJobQueue()
 
         sys.stdout.write('.')
         sys.stdout.flush()
