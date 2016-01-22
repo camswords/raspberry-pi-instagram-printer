@@ -2,6 +2,7 @@ from instagram.client import InstagramAPI
 from repository import Repository
 import os
 import time
+import traceback
 
 class MediaServer:
 
@@ -20,10 +21,8 @@ class MediaServer:
         if not self.database.has_key("downloaded-media"):
             self.database.save("downloaded-media", [])
 
-    def fetch(self):
-        recent_media = self.api.tag_recent_media(1, self.database.retrieve("most-recent-id"), self.hashtag)
-
-        for media in recent_media[0]:
+    def persist(self, medias):
+        for media in medias:
             self.database.save("most-recent-id", media.id)
             downloaded = self.database.retrieve("downloaded-media")
 
@@ -31,6 +30,15 @@ class MediaServer:
                 downloaded.insert(0, media.id)
                 self.database.save("downloaded-media", downloaded)
                 self.database.save(media.id, {"url": media.images['standard_resolution'].url})
+
+    def fetch(self):
+        try:
+            recent_media = self.api.tag_recent_media(1, self.database.retrieve("most-recent-id"), self.hashtag)
+            self.persist(recent_media[0])
+        except:
+            exceptiondata = traceback.format_exc().splitlines()
+            print "failed to fetch media from instagram, error was %s" % (exceptiondata[-1])
+
 
     def hasNext(self):
         downloaded = self.database.retrieve("downloaded-media")
