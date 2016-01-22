@@ -3,6 +3,7 @@ from repository import Repository
 import os
 import time
 import traceback
+from timeout import timeout
 
 class MediaServer:
 
@@ -31,6 +32,7 @@ class MediaServer:
                 self.database.save("downloaded-media", downloaded)
                 self.database.save(media.id, {"url": media.images['standard_resolution'].url})
 
+    @timeout(30)
     def fetch(self):
         try:
             recent_media = self.api.tag_recent_media(1, self.database.retrieve("most-recent-id"), self.hashtag)
