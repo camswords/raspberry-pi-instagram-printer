@@ -1,60 +1,35 @@
 from instagram.client import InstagramAPI
-from database import Database
+from media_repository import MediaRepository
+from media import Media
 import os
 import time
-import traceback
 from timeout import timeout
 
 class MediaServer:
 
-    def __init__(self):
+    def __init__(self, media_repository):
         self.client_id = client_id=os.environ['INSTAGRAM_CLIENT_ID']
         self.client_secret = os.environ['INSTAGRAM_CLIENT_SECRET']
         self.hashtag = os.environ['INSTAGRAM_HASHTAG']
 
         self.api = InstagramAPI(client_id = self.client_id, client_secret = self.client_secret)
-
-        self.database = Database()
-
-        if not self.database.has_key("most-recent-id"):
-            self.database.save("most-recent-id", 0)
-
-        if not self.database.has_key("downloaded-media"):
-            self.database.save("downloaded-media", [])
-
-    def persist(self, medias):
-        for media in medias:
-            self.database.save("most-recent-id", media.id)
-            downloaded = self.database.retrieve("downloaded-media")
-
-            if not self.database.has_key(media.id):
-                downloaded.insert(0, media.id)
-                self.database.save("downloaded-media", downloaded)
-                self.database.save(media.id, {"url": media.images['standard_resolution'].url})
+        self.media_repository = media_repository
 
     @timeout(30)
     def fetch(self):
-        try:
-            recent_media = self.api.tag_recent_media(1, self.database.retrieve("most-recent-id"), self.hashtag)
-            self.persist(recent_media[0])
-        except:
-            exceptiondata = traceback.format_exc().splitlines()
-            print "failed to fetch media from instagram, error was %s" % (exceptiondata[-1])
+        latest_media = self.media_repository.latest()
+        recent_media = self.api.tag_recent_media(1, latest_media.id, self.hashtag)
 
-
-    def hasNext(self):
-        downloaded = self.database.retrieve("downloaded-media")
-        return len(downloaded) > 0
+        for instagram_media in recent_media[0]:
+            media = Media(id = instagram_media.id, url = str(instagram_media.images['standard_resolution'].url), status = "new")
+            print("%s - fetched from instagram, url is %s" % (media.id, media.url))
+            self.media_repository.save(media)
 
     def next(self):
-        while not self.hasNext():
+        while not self.media_repository.has_new_media():
             self.fetch()
 
             # lets not go mental, rate limit seems to be 5000 / hr. (5 secs = 720 requests per hr)
             time.sleep(5)
 
-        downloaded = self.database.retrieve("downloaded-media")
-        mediaId = downloaded.pop()
-        self.database.save("downloaded-media", downloaded)
-
-        return self.database.retrieve(mediaId)
+        return self.media_repository.peek_new_media()
