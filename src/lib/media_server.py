@@ -18,7 +18,7 @@ class MediaServer:
     @timeout(30)
     def fetch(self):
         latest_media = self.media_repository.latest()
-        recent_media = self.api.tag_recent_media(1, latest_media.id, self.hashtag)
+        recent_media = self.api.tag_recent_media(5, latest_media.id, self.hashtag)
 
         for instagram_media in recent_media[0]:
             media = Media(id = instagram_media.id, url = str(instagram_media.images['standard_resolution'].url), status = "new")
