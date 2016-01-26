@@ -10,8 +10,9 @@ class SavedImages:
 
     @timeout(30)
     def save_to_filesystem(self, media):
-        check_call(["rm", "-rf", "/tmp/image.jpg"])
-        check_call(["wget", media.url, "--quiet", "-O", "/tmp/image.jpg"])
+        check_call(["rm", "-rf", "/tmp/image-downloading.jpg"])
+        check_call(["wget", media.url, "--quiet", "-O", "/tmp/image-downloading.jpg"])
+        check_call(["cp", "-f", "/tmp/image-downloading.jpg", "/tmp/image.jpg"])
 
     def next(self):
         media = self.media_server.next()
