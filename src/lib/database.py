@@ -1,7 +1,7 @@
 import shelve
 import os
 
-class Repository:
+class Database:
 
     def __init__(self):
         directory = os.path.dirname(os.path.abspath(__file__))

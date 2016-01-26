@@ -1,5 +1,5 @@
 from instagram.client import InstagramAPI
-from repository import Repository
+from database import Database
 import os
 import time
 import traceback
@@ -14,7 +14,7 @@ class MediaServer:
 
         self.api = InstagramAPI(client_id = self.client_id, client_secret = self.client_secret)
 
-        self.database = Repository()
+        self.database = Database()
 
         if not self.database.has_key("most-recent-id"):
             self.database.save("most-recent-id", 0)
