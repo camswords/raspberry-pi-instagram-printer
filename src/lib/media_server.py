@@ -23,7 +23,7 @@ class MediaServer:
         for instagram_media in recent_media[0]:
             media = Media(id = instagram_media.id, url = str(instagram_media.images['standard_resolution'].url), status = "new")
             print("%s - fetched from instagram, url is %s" % (media.id, media.url))
-            self.media_repository.save(media)
+            self.media_repository.create(media)
 
     def next(self):
         while not self.media_repository.has_new_media():

@@ -42,6 +42,12 @@ class MediaRepository:
 
         return self.retrieve(new_media_ids.pop())
 
+    def create(self, media):
+        if self.database.has_key(media.id):
+            return media
+
+        self.save(media)
+
     def save(self, media):
         if (media.is_new()):
             self.update_latest(media)
