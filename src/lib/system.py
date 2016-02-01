@@ -1,13 +1,14 @@
 import cups
 from printer import Printer
+from jobs import Jobs
 
 class System:
 
     def __init__(self):
-        self.printerConnection = cups.Connection()
+        self.connection = cups.Connection()
 
     def printer_name(self, printer):
-        printers = self.printerConnection.getPrinters()
+        printers = self.connection.getPrinters()
 
         for index, this_printer_name in enumerate(printers.keys()):
             this_printer = printers[this_printer_name]
@@ -18,16 +19,18 @@ class System:
         raise RuntimeException("failed to determine printer name of printer %s", printer["device-uri"])
 
     def printer(self):
-        if (self.printerConnection.getDefault()):
-            default = self.printerConnection.getDefault()
-            return Printer(self.printerConnection, self.printer_name(default), default)
+        if (self.connection.getDefault()):
+            return Printer(self.connection, self.printer_name(self.connection.getDefault()))
 
-        printers = self.printerConnection.getPrinters()
+        printers = self.connection.getPrinters()
 
         if printers.has_key("Canon_CP910_2"):
-            return Printer(self.printerConnection, self.printer_name(printers["Canon_CP910_2"]), printers["Canon_CP910_2"])
+            return Printer(self.connection, self.printer_name(printers["Canon_CP910_2"]))
 
         return None
 
     def has_printer(self):
         return self.printer() is not None
+
+    def jobs(self):
+        return Jobs(self.connection.getJobs())

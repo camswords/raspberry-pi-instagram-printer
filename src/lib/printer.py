@@ -3,30 +3,33 @@ from job import Job
 
 class Printer:
 
-    def __init__(self, connection, printer_name, printer):
+    def __init__(self, connection, printer_name):
         self.connection = connection
         self.printer_name = printer_name
-        self.printer = printer
+
+    def printer(self):
+        printers = self.connection.getPrinters()
+        return printers[self.printer_name]
 
     def status(self):
-        if self.printer["printer-state"] is 3:
+        if self.printer()["printer-state"] is 3:
             return "idle"
-        elif self.printer["printer-state"] is 4:
+        elif self.printer()["printer-state"] is 4:
             return "printing"
-        elif self.printer["printer-state"] is 5:
+        elif self.printer()["printer-state"] is 5:
             return "stopped"
 
-        return "unknown (%s)" % self.printer["printer-state"]
+        return "unknown (%s)" % self.printer()["printer-state"]
 
     def safely_get(self, key):
-        if self.printer.has_key(key):
-            return self.printer[key]
+        if self.printer().has_key(key):
+            return self.printer()[key]
 
         return None
 
     def safely_get_array(self, key):
-        if self.printer.has_key(key):
-            return self.printer[key]
+        if self.printer().has_key(key):
+            return self.printer()[key]
 
         return []
 
@@ -38,7 +41,7 @@ class Printer:
             raise RuntimeException("attempting to print %s but the printer is not ready to print" % self.status())
 
         job_id = self.connection.printFile(self.printer_name, filename, "", {})
-        return Job(job_id)
+        return Job(self.connection, job_id)
 
     def errors(self):
         reasons = self.safely_get_array("printer-state-reasons")
@@ -47,7 +50,7 @@ class Printer:
         if reasons == ["none"]:
             reasons = []
 
-        return "messages (%s), reasons (%s)" % (",".join(messages), ",".join(reasons))
+        return "messages (%s), reasons (%s)" % (messages, reasons)
 
     def has_errors(self):
         reasons = self.safely_get_array("printer-state-reasons")
