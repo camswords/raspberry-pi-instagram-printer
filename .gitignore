@@ -1,2 +1,3 @@
 *.pyc
 /database/database.db
+src/wget.log
