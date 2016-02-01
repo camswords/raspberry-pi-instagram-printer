@@ -7,8 +7,6 @@ import traceback
 import signal
 
 
-
-
 class InstagramPrinter:
 
     def __init__(self):
