@@ -12,20 +12,26 @@ if system.has_printer():
     print "sending job to printer..."
     job = printer.send_to_printer("/tmp/image.jpg")
 
+    print system.printer()
     print job.attributes()
     time.sleep(5)
 
+    print system.printer()
     print job.attributes()
     time.sleep(5)
 
+    print system.printer()
     print job.attributes()
     time.sleep(5)
 
+    print system.printer()
     print job.attributes()
     time.sleep(5)
 
+    print system.printer()
     print job.attributes()
     time.sleep(5)
 
+    print system.printer()
     print job.attributes()
     time.sleep(5)
