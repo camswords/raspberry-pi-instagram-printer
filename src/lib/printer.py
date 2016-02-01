@@ -1,8 +1,11 @@
 
+from job import Job
 
 class Printer:
 
-    def __init__(self, printer):
+    def __init__(self, connection, printer_name, printer):
+        self.connection = connection
+        self.printer_name = printer_name
         self.printer = printer
 
     def status(self):
@@ -27,6 +30,16 @@ class Printer:
 
         return []
 
+    def ready_to_print(self):
+        return self.status() == "idle"
+
+    def send_to_printer(self, filename):
+        if not self.ready_to_print():
+            raise RuntimeException("attempting to print %s but the printer is not ready to print" % self.status())
+
+        job_id = self.connection.printFile(self.printer_name, filename, "", {})
+        return Job(job_id)
+
     def errors(self):
         reasons = self.safely_get_array("printer-state-reasons")
         messages = self.safely_get_array("printer-state-message")
@@ -46,7 +59,6 @@ class Printer:
         return len(messages) > 0 or len(reasons) > 0
 
     def __str__(self):
-        info = self.safely_get("printer-info")
         status = self.status()
         accepting = self.safely_get("printer-is-accepting-jobs")
         errors = self.errors()
@@ -55,6 +67,6 @@ class Printer:
             accepting = "?"
 
         if self.has_errors():
-            return "printer(name: %s, status: %s, accepting: %s), has errors: %s" % (info, status, accepting, errors)
+            return "printer(name: %s, status: %s, accepting: %s), has errors: %s" % (self.printer_name, status, accepting, errors)
 
-        return "printer(name: %s, status: %s, accepting: %s)" % (info, status, accepting)
+        return "printer(name: %s, status: %s, accepting: %s)" % (self.printer_name, status, accepting)
