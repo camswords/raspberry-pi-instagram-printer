@@ -1,6 +1,7 @@
 import cups
 from printer import Printer
 from jobs import Jobs
+from job import Job
 
 class System:
 
@@ -33,4 +34,7 @@ class System:
         return self.printer() is not None
 
     def jobs(self):
-        return Jobs(self.connection.getJobs())
+        return Jobs(self.connection)
+
+    def job(self, job_id):
+        return Job(self.connection, job_id)
