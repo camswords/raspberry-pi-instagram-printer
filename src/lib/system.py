@@ -20,7 +20,7 @@ class System:
 
     def printer(self):
         if (self.connection.getDefault()):
-            return Printer(self.connection, self.printer_name(self.connection.getDefault()))
+            return Printer(self.connection, self.connection.getDefault())
 
         printers = self.connection.getPrinters()
 
