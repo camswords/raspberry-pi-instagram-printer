@@ -16,9 +16,9 @@ class InstagramPrinter:
 
         self.running = False
         self.system = System()
-        self.mediaRepository = MediaRepository()
-        self.mediaServer = MediaServer(self.mediaRepository)
-        self.savedImages = SavedImages(self.mediaServer)
+        self.media_repository = MediaRepository()
+        self.media_server = MediaServer(self.media_repository)
+        self.saved_images = SavedImages(self.media_server, self.media_repository)
 
     def start(self):
         self.running = True
@@ -45,9 +45,7 @@ class InstagramPrinter:
                     time.sleep(90)
                     continue
 
-                # save attempted print to the media repository
-                self.system.printer().send(self.savedImages.next())
-                # save successful print to the media repository
+                self.system.printer().send(self.saved_images.next())
 
             except:
                 exceptiondata = traceback.format_exc().splitlines()

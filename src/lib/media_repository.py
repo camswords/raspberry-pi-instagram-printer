@@ -30,10 +30,10 @@ class MediaRepository:
 
         return self.database.retrieve("new-media")
 
-    def has_new_media(self):
+    def has_available_media(self):
         return len(self.new_media_ids()) > 0
 
-    def peek_new_media(self):
+    def peek_available_media(self):
         new_media_ids = self.new_media_ids()
 
         if len(new_media_ids) == 0:
@@ -45,15 +45,15 @@ class MediaRepository:
         if self.database.has_key(media.id):
             return media
 
+        self.update_latest(media)
+        self.update_new_ids(media)
+        self.save(media)
+
+    def update(self, media):
+        self.update_non_new_id(media)
         self.save(media)
 
     def save(self, media):
-        if (media.is_new()):
-            self.update_latest(media)
-            self.update_new_ids(media)
-        else:
-            self.update_non_new_id(media)
-
         self.database.save(media.id, { "id": media.id, "url": media.url, "status": media.status })
         print("%s - saved to database with status %s" % (media.id, media.status))
         return media

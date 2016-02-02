@@ -5,8 +5,9 @@ from subprocess import check_call
 
 class SavedImages:
 
-    def __init__(self, media_server):
+    def __init__(self, media_server, media_repository):
         self.media_server = media_server
+        self.media_repository = media_repository
 
     @timeout(30)
     def save_to_filesystem(self, media):
@@ -18,4 +19,4 @@ class SavedImages:
         media = self.media_server.next()
         self.save_to_filesystem(media)
         print("%s - saved to file system at /tmp/image.jpg" % media.id)
-        return SavedImage(media, "/tmp/image.jpg")
+        return SavedImage(media, "/tmp/image.jpg", self.media_repository)

@@ -26,10 +26,10 @@ class MediaServer:
             self.media_repository.create(media)
 
     def next(self):
-        while not self.media_repository.has_new_media():
+        while not self.media_repository.has_available_media():
             self.fetch()
 
             # lets not go mental, rate limit seems to be 5000 / hr. (5 secs = 720 requests per hr)
             time.sleep(5)
 
-        return self.media_repository.peek_new_media()
+        return self.media_repository.peek_available_media()
