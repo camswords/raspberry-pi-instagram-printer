@@ -42,10 +42,10 @@ class Printer:
         if not self.ready_to_print():
             raise RuntimeException("attempting to print %s but the printer is not ready to print" % self.status())
 
+        print "%s - sent to printer, waiting to print (90 secs)" % saved_image.media.id
         job_id = self.connection.printFile(self.printer_name, saved_image.file_path, "", {})
 
         # it takes about a minute to print an image.
-        print "wait a minute, give it a chance to print..."
         time.sleep(90)
 
         return Job(self.connection, job_id)

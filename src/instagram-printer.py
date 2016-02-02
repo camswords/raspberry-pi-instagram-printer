@@ -33,27 +33,25 @@ class InstagramPrinter:
             try:
 
                 if not self.system.has_printer():
-                    print "system has no default printer, skipping print"
+                    print "failure - system has no default printer, skipping print"
                     continue
 
                 if self.system.has_jobs():
-                    print "system has incomplete jobs, dealing with failure"
-                    print "cancelling all pending print jobs"
+                    print "failure - system has incomplete jobs, cancelling all of them"
                     self.system.printer().cancel_all_jobs()
 
-                    print "restarting printer"
+                    print "failure - restarting printer (90 secs)"
                     # deal with failure: restart printer
-                    print "waiting for printer to restart"
                     time.sleep(90)
                     continue
 
-                # save print job to the media repository
-                job = self.system.printer().send(self.savedImages.next())
-                print "%s successfully sent to printer" % job
+                # save attempted print to the media repository
+                self.system.printer().send(self.savedImages.next())
+                # save successful print to the media repository
 
             except:
                 exceptiondata = traceback.format_exc().splitlines()
-                print "failed to instagram print, error was %s. skipping print" % (exceptiondata[-1])
+                print "failure - uncaught error, %s. skipping print" % (exceptiondata[-1])
 
             finally:
                 sys.stdout.flush()
