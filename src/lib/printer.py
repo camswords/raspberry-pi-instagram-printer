@@ -37,7 +37,7 @@ class Printer:
     def ready_to_print(self):
         return self.status() == "idle"
 
-    @timeout(30)
+    @timeout(120)
     def send(self, saved_image):
         if not self.ready_to_print():
             raise RuntimeException("attempting to print %s but the printer is not ready to print" % self.status())

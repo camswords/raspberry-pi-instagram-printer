@@ -34,10 +34,6 @@ class System:
         return self.printer() is not None
 
     def has_jobs(self):
-
-        if len(self.connection.getJobs()) > 0:
-            print "has jobs!", self.connection.getJobs()
-
         return len(self.connection.getJobs()) > 0
 
     def jobs(self):
