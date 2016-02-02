@@ -8,11 +8,11 @@ class SavedImage:
 
     def update_media_as_printing(self):
         self.media.status = "printing"
-        self.media_repository.update(media)
+        self.media_repository.update(self.media)
 
     def update_media_as_printed(self):
         self.media.status = "printed"
-        self.media_repository.update(media)
+        self.media_repository.update(self.media)
 
     def __str__(self):
         return "saved_image(%s, %s)" % (media.id, file_path)
