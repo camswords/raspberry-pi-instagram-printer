@@ -1,4 +1,5 @@
-
+from timeout import timeout
+import time
 from job import Job
 
 class Printer:
@@ -36,11 +37,17 @@ class Printer:
     def ready_to_print(self):
         return self.status() == "idle"
 
-    def send_to_printer(self, filename):
+    @timeout(30)
+    def send(self, saved_image):
         if not self.ready_to_print():
             raise RuntimeException("attempting to print %s but the printer is not ready to print" % self.status())
 
-        job_id = self.connection.printFile(self.printer_name, filename, "", {})
+        job_id = self.connection.printFile(self.printer_name, saved_image.file_path, "", {})
+
+        # it takes about a minute to print an image.
+        print "wait a minute, give it a chance to print..."
+        time.sleep(90)
+
         return Job(self.connection, job_id)
 
     def errors(self):
@@ -60,6 +67,9 @@ class Printer:
             reasons = []
 
         return len(messages) > 0 or len(reasons) > 0
+
+    def cancel_all_jobs(self):
+        self.connection.cancelAllJobs(self.printer_name)
 
     def __str__(self):
         status = self.status()

@@ -20,7 +20,6 @@ class MediaRepository:
         new_media.insert(0, media.id)
         self.database.save("new-media", new_media)
 
-
     def update_non_new_id(self, media):
         def not_media(this_media_id): return this_media_id != media.id
         self.database.save("new-media", filter(not_media, self.new_media_ids()))
