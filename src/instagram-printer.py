@@ -32,7 +32,7 @@ class InstagramPrinter:
         while self.running == True:
             try:
 
-                print "printer", self.printer()
+                print "printer", self.system.printer()
 
                 if not self.system.has_printer():
                     print "failure - system has no default printer, skipping print"
