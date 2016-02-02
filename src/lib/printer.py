@@ -48,6 +48,11 @@ class Printer:
         print "%s - sent to printer, waiting to print (90 secs)" % saved_image.media.id
         job_id = self.connection.printFile(self.printer_name, saved_image.file_path, "", {})
 
+        print "has_errors? %s, errors are %s" % (self.has_errors(), self.errors())
+        print "printer", self
+        print "jobs %s", self.connection.getJobs()
+
+
         # it takes about a minute to print an image.
         time.sleep(90)
         saved_image.update_media_as_printed()
