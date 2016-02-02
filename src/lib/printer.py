@@ -35,7 +35,7 @@ class Printer:
         return []
 
     def ready_to_print(self):
-        return self.status() == "idle" and not self.has_errors()
+        return self.status() == "idle"
 
     @timeout(120)
     def send(self, saved_image):

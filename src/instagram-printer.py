@@ -33,7 +33,7 @@ class InstagramPrinter:
             try:
 
                 if not self.system.printer().ready_to_print():
-                    print "failure - system is not ready to print, skipping print. status is %s, errors are %s" % (self.system.printer().status(), self.system.printer().errors())
+                    print "failure - system is not ready to print, skipping. status is %s" % self.system.printer().status()
                     continue
 
                 if not self.system.has_printer():
