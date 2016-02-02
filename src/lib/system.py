@@ -17,7 +17,7 @@ class System:
             if this_printer["device-uri"] == printer["device-uri"]:
                 return this_printer_name
 
-        raise RuntimeException("failed to determine printer name of printer %s", printer["device-uri"])
+        raise RuntimeError("failed to determine printer name of printer %s", printer["device-uri"])
 
     def printer(self):
         if (self.connection.getDefault()):

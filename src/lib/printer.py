@@ -40,7 +40,7 @@ class Printer:
     @timeout(120)
     def send(self, saved_image):
         if not self.ready_to_print():
-            raise RuntimeException("attempting to print %s but the printer is not ready to print" % self.status())
+            raise RuntimeError("attempting to print %s but the printer is not ready to print" % self.status())
 
 
         saved_image.update_media_as_printing()
