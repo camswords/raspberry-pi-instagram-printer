@@ -3,6 +3,7 @@ from lib.system import System
 from lib.media_repository import MediaRepository
 from lib.media_server import MediaServer
 from lib.saved_images import SavedImages
+from lib.power import Power
 import signal
 import traceback
 import sys
@@ -19,14 +20,14 @@ class InstagramPrinter:
         self.media_repository = MediaRepository()
         self.media_server = MediaServer(self.media_repository)
         self.saved_images = SavedImages(self.media_server, self.media_repository)
+        self.power = Power()
 
     def recover_printer(self):
         print "recover printer - cancelling all jobs"
         self.system.printer().cancel_all_jobs()
 
         print "recover printer - restarting printer (90 secs)"
-        # deal with failure: restart printer
-        time.sleep(90)
+        self.power.cycle_printer()
 
     def start(self):
         self.running = True
