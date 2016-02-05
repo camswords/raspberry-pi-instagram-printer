@@ -3,8 +3,6 @@ import time
 
 class Power:
 
-    def __init__(self):
-
     def cycle_printer(self):
         # turn off
         check_call(["/home/pi/send", "001000001111101000000110"])
