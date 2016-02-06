@@ -14,5 +14,9 @@ class SavedImage:
         self.media.status = "printed"
         self.media_repository.update(self.media)
 
+    def update_media_as_failed_print(self):
+        self.media.status = "failed-print"
+        self.media_repository.update(self.media)
+
     def __str__(self):
         return "saved_image(%s, %s)" % (media.id, file_path)

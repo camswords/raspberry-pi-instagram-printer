@@ -50,7 +50,12 @@ class Printer:
         # it takes about a minute to print an image. 1.5 mins is conservative.
         time.sleep(90)
 
-        saved_image.update_media_as_printed()
+        if self.has_jobs():
+            print "%s - seems to have finished, updating status to printed" % saved_image.media.id
+            saved_image.update_media_as_printed()
+        else:
+            print "%s - doesn't seem to be finished, updating status to failed-print" % saved_image.media.id
+            saved_image.update_media_as_failed_print()
         return Job(self.connection, job_id)
 
     def errors(self):
@@ -73,6 +78,9 @@ class Printer:
 
     def cancel_all_jobs(self):
         self.connection.cancelAllJobs(self.printer_name)
+
+    def has_jobs(self):
+        return len(self.connection.getJobs()) > 0
 
     def __str__(self):
         status = self.status()

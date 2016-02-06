@@ -57,7 +57,7 @@ class InstagramPrinter:
                     print "failure - system has no default printer, skipping print"
                     continue
 
-                if self.system.has_jobs():
+                if self.system.printer().has_jobs():
                     print "failure - system has incomplete jobs"
                     self.recover_printer()
                     continue
