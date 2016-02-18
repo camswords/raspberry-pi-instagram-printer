@@ -16,11 +16,11 @@ class Power:
         self.turn_off()
         self.turn_off()
         self.turn_off()
-        time.sleep(16)
+        time.sleep(5)
 
         # turn on
         self.turn_on()
         self.turn_on()
         self.turn_on()
         self.turn_on()
-        time.sleep(66)
+        time.sleep(15)
