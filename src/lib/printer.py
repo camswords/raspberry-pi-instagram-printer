@@ -75,6 +75,7 @@ class Printer:
         return len(messages) > 0 or len(reasons) > 0
 
     def cancel_all_jobs(self):
+        SupportTeam.notify("recover printer - cancelling all jobs")
         self.connection.cancelAllJobs(self.printer_name)
 
     def has_jobs(self):

@@ -18,6 +18,7 @@ class MediaServer:
 
     @timeout(30)
     def fetch(self):
+        SupportTeam.notify("fetching latest media from instagram...")
         latest_media = self.media_repository.latest()
         recent_media = self.api.tag_recent_media(5, latest_media.id, self.hashtag)
 
@@ -31,6 +32,7 @@ class MediaServer:
             self.fetch()
 
             # lets not go mental, rate limit seems to be 5000 / hr. (5 secs = 720 requests per hr)
+            SupportTeam.notify("wait to avoid instagram rate limiting (5 secs)")
             time.sleep(5)
 
         return self.media_repository.peek_available_media()

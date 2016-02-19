@@ -19,5 +19,5 @@ class SavedImages:
     def next(self):
         media = self.media_server.next()
         self.save_to_filesystem(media)
-        SupportTeam.notifiy("%s - saved to file system at /tmp/image.jpg" % media.id)
+        SupportTeam.notify("%s - saved to file system at /tmp/image.jpg" % media.id)
         return SavedImage(media, "/tmp/image.jpg", self.media_repository)

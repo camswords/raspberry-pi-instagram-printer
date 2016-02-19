@@ -23,13 +23,6 @@ class InstagramPrinter:
         self.saved_images = SavedImages(self.media_server, self.media_repository)
         self.power = Power()
 
-    def recover_printer(self):
-        SupportTeam.notify("recover printer - cancelling all jobs")
-        self.system.printer().cancel_all_jobs()
-
-        SupportTeam.notify("recover printer - restarting printer (20 secs)")
-        self.power.cycle_printer()
-
     def start(self):
         self.running = True
         self.run()
@@ -48,7 +41,8 @@ class InstagramPrinter:
                     time.sleep(20)
                     continue
 
-                self.recover_printer()
+                self.system.printer().cancel_all_jobs()
+                self.power.cycle_printer()
                 self.system.printer().send(self.saved_images.next())
 
             except:
