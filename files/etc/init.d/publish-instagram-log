@@ -10,7 +10,7 @@
 ### END INIT INFO
 
 dir="/var/log/instagram-print"
-cmd="python -m SimpleHTTPServer"
+cmd="python /home/pi/webtail.py /var/log/instagram-print/instagram-print.log 8000"
 user=""
 
 name=`basename $0`

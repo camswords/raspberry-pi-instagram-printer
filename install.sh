@@ -48,6 +48,9 @@ wget https://s3-ap-southeast-2.amazonaws.com/cams-downloads/send.tar.gz
 tar zvxf send.tar.gz
 cp /root/send /home/pi/send
 
+# copy webtail.py to the home directory
+cp /home/pi/raspberry-pi-instagram-printer/files/home/pi/webtail.py /home/pi/webtail.py
+
 # install python modules
 apt-get install python-dev python-pip libjpeg8-dev --assume-yes
 pip install python-instagram
@@ -86,6 +89,7 @@ mkdir -p /var/log/publish-instagram-log
 cp /home/pi/raspberry-pi-instagram-printer/files/etc/init.d/instagram-print /etc/init.d/instagram-print
 chmod 755 /etc/init.d/instagram-print
 mkdir -p /var/log/instagram-print
+touch /var/log/instagram-print/instagram-print.log
 
 # replace the instagram values with the ones the user has typed in.
 sed -i "s/INSTAGRAM_CLIENT_ID_VALUE/$INSTAGRAM_CLIENT_ID/g" /etc/init.d/instagram-print
