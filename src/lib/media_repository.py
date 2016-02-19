@@ -1,5 +1,6 @@
 from database import Database
 from media import Media
+from support_team import SupportTeam
 
 class MediaRepository:
 
@@ -55,7 +56,7 @@ class MediaRepository:
 
     def save(self, media):
         self.database.save(media.id, { "id": media.id, "url": media.url, "status": media.status })
-        print("%s - saved to database with status %s" % (media.id, media.status))
+        SupportTeam.notify("%s - saved to database with status %s" % (media.id, media.status))
         return media
 
     def retrieve(self, media_id):

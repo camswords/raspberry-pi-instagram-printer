@@ -1,5 +1,6 @@
 from instagram.client import InstagramAPI
 from media_repository import MediaRepository
+from support_team import SupportTeam
 from media import Media
 import os
 import time
@@ -22,7 +23,7 @@ class MediaServer:
 
         for instagram_media in recent_media[0]:
             media = Media(id = instagram_media.id, url = str(instagram_media.images['standard_resolution'].url), status = "new")
-            print("%s - fetched from instagram, url is %s" % (media.id, media.url))
+            SupportTeam.notify("%s - fetched from instagram, url is %s" % (media.id, media.url))
             self.media_repository.create(media)
 
     def next(self):

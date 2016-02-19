@@ -4,6 +4,7 @@ from lib.media_repository import MediaRepository
 from lib.media_server import MediaServer
 from lib.saved_images import SavedImages
 from lib.power import Power
+from lib.support_team import SupportTeam
 import signal
 import traceback
 import sys
@@ -23,10 +24,10 @@ class InstagramPrinter:
         self.power = Power()
 
     def recover_printer(self):
-        print "recover printer - cancelling all jobs"
+        SupportTeam.notify("recover printer - cancelling all jobs")
         self.system.printer().cancel_all_jobs()
 
-        print "recover printer - restarting printer (20 secs)"
+        SupportTeam.notify("recover printer - restarting printer (20 secs)")
         self.power.cycle_printer()
 
     def start(self):
@@ -36,12 +37,12 @@ class InstagramPrinter:
     def run(self):
 
         if self.system.has_printer():
-            print "using system default printer %s" % self.system.printer().printer_name
+            SupportTeam.notify("using system default printer %s" % self.system.printer().printer_name)
 
         while self.running == True:
             try:
                 if not self.system.has_printer():
-                    print "failure - system has no default printer, skipping print"
+                    SupportTeam.notify("failure - system has no default printer, skipping print")
 
                     # wait a bit longer than normal, so that the printer doesn't smash the log failed
                     time.sleep(20)
@@ -52,7 +53,7 @@ class InstagramPrinter:
 
             except:
                 exceptiondata = traceback.format_exc().splitlines()
-                print "failure - uncaught error, %s. skipping print" % (exceptiondata[-1])
+                SupportTeam.notify("failure - uncaught error, %s. skipping print" % (exceptiondata[-1]))
 
             finally:
                 sys.stdout.flush()

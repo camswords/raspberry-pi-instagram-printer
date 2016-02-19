@@ -1,3 +1,4 @@
+from support_team import SupportTeam
 from timeout import timeout
 import time
 from job import Job
@@ -44,13 +45,13 @@ class Printer:
 
         saved_image.update_media_as_printing()
 
-        print "%s - sent to printer, waiting to print (90 secs)" % saved_image.media.id
+        SupportTeam.notify("%s - sent to printer, waiting to print (90 secs)" % saved_image.media.id)
         job_id = self.connection.printFile(self.printer_name, saved_image.file_path, "", {})
 
         # it takes about a minute to print an image. 1.5 mins is conservative.
         time.sleep(90)
 
-        print "%s - updating status to printed" % saved_image.media.id
+        SupportTeam.notify("%s - updating status to printed" % saved_image.media.id)
         saved_image.update_media_as_printed()
 
         return Job(self.connection, job_id)

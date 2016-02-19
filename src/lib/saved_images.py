@@ -1,3 +1,4 @@
+from support_team import SupportTeam
 from media_server import MediaServer
 from saved_image import SavedImage
 from timeout import timeout
@@ -18,5 +19,5 @@ class SavedImages:
     def next(self):
         media = self.media_server.next()
         self.save_to_filesystem(media)
-        print("%s - saved to file system at /tmp/image.jpg" % media.id)
+        SupportTeam.notifiy("%s - saved to file system at /tmp/image.jpg" % media.id)
         return SavedImage(media, "/tmp/image.jpg", self.media_repository)
