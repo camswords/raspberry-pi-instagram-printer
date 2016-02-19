@@ -28,6 +28,9 @@ fi
 
 echo "Thanks! Preparing to install. This takes around one hour."
 
+# update the domain name to instagram-print.local
+echo "instagram-print" > /etc/hostname
+
 apt-get update
 
 # install git, install code
@@ -73,9 +76,15 @@ cp /home/pi/raspberry-pi-instagram-printer/files/etc/cups/cupsd.conf /etc/cups/c
 /etc/init.d/cups force-reload
 /etc/init.d/cups restart
 
+# set up the init.d script to publish the log file
+cp /home/pi/raspberry-pi-instagram-printer/files/etc/init.d/publish-instagram-log /etc/init.d/publish-instagram-log
+chmod 755 /etc/init.d/publish-instagram-log
+mkdir -p /var/log/publish-instagram-log
+
 # set up the init.d script to start the instagram printing
 cp /home/pi/raspberry-pi-instagram-printer/files/etc/init.d/instagram-print /etc/init.d/instagram-print
 chmod 755 /etc/init.d/instagram-print
+mkdir -p /var/log/instagram-print
 
 # replace the instagram values with the ones the user has typed in.
 sed -i "s/INSTAGRAM_CLIENT_ID_VALUE/$INSTAGRAM_CLIENT_ID/g" /etc/init.d/instagram-print
@@ -84,10 +93,11 @@ sed -i "s/INSTAGRAM_HASHTAG_VALUE/$INSTAGRAM_HASHTAG/g" /etc/init.d/instagram-pr
 
 # ensure that the script starts when the raspberrypi boots
 update-rc.d instagram-print defaults
+update-rc.d publish-instagram-log defaults
 
 # start the service, in preparation for the user configuring their printer.
 /etc/init.d/instagram-print start
-
+/etc/init.d/publish-instagram-log start
 
 # Instructions
 printf "\n\n"
@@ -100,6 +110,6 @@ printf "Note: if configuring using USB, you may need to run the following:\n"
 printf "1. lpadmin -p [your printer name] -o usb-unidir-default=true\n"
 printf "2. lpadmin -p [your printer name] -o usb-no-reattach-default=true\n"
 printf "Note: you can change your instagram details by editing the /etc/init.d/instagram-print file.\n"
-printf "Note: logs are found in /var/log/instagram-print.log and /var/log/instagram-print.err.\n"
+printf "Note: logs are found in /var/log/instagram-print/instagram-print.log and /var/log/instagram-print/instagram-print.err.\n"
 printf "Note: you can control the service by running sudo /etc/init.d/instagram-print start|stop|restart.\n\n"
 printf "Enjoy.\n"

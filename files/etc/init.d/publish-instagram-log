@@ -1,6 +1,6 @@
 #!/bin/sh
 ### BEGIN INIT INFO
-# Provides: instagram-print
+# Provides: publish-instagram-log
 # Required-Start:    $remote_fs $syslog
 # Required-Stop:     $remote_fs $syslog
 # Default-Start:     2 3 4 5
@@ -9,8 +9,8 @@
 # Description:       Enable service provided by daemon.
 ### END INIT INFO
 
-dir="/home/pi/raspberry-pi-instagram-printer"
-cmd="INSTAGRAM_CLIENT_ID=INSTAGRAM_CLIENT_ID_VALUE INSTAGRAM_CLIENT_SECRET=INSTAGRAM_CLIENT_SECRET_VALUE INSTAGRAM_HASHTAG=INSTAGRAM_HASHTAG_VALUE python src/instagram-printer.py"
+dir="/var/log/instagram-print"
+cmd="python -m SimpleHTTPServer"
 user=""
 
 name=`basename $0`
