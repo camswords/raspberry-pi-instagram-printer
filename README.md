@@ -34,9 +34,11 @@ This installation takes around an hour, largely because it needs to compile gute
 
 You can check the tags on instagram here: https://instagram.com/explore/tags/[tag-name]/
 
+You can read the logs of the instagram-print service here http://[your ip address]:8000
+
 ### Printers ###
 
-It's easiest to add a printer through the administration terminal. Head to `https://[your ip address]:693` and add printers under the administration tab.
+It's easiest to add a printer through the administration terminal. Head to `https://[your ip address]:631` and add printers under the administration tab.
 
 Note, if you want your printer to just keep working I recommend setting the Error Policy (in default options) to Abort job.
 

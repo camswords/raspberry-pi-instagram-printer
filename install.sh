@@ -46,6 +46,7 @@ cd wiringPi
 cd ~
 wget https://s3-ap-southeast-2.amazonaws.com/cams-downloads/send.tar.gz
 tar zvxf send.tar.gz
+cp /root/send /home/pi/send
 
 # install python modules
 apt-get install python-dev python-pip libjpeg8-dev --assume-yes
