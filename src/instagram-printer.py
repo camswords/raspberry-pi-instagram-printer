@@ -42,6 +42,9 @@ class InstagramPrinter:
             try:
                 if not self.system.has_printer():
                     print "failure - system has no default printer, skipping print"
+
+                    # wait a bit longer than normal, so that the printer doesn't smash the log failed
+                    time.sleep(20)
                     continue
 
                 self.recover_printer()
