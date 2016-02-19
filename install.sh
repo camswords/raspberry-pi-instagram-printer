@@ -34,6 +34,16 @@ apt-get update
 apt-get install git --assume-yes
 git clone https://github.com/camswords/raspberry-pi-instagram-printer.git
 
+# build wiringPi (so that send can use it)
+git clone git://git.drogon.net/wiringPi
+cd wiringPi
+./build
+
+# download and extract send
+cd ~
+wget https://s3-ap-southeast-2.amazonaws.com/cams-downloads/send.tar.gz
+tar zvxf send.tar.gz
+
 # install python modules
 apt-get install python-dev python-pip libjpeg8-dev --assume-yes
 pip install python-instagram
