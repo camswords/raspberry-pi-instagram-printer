@@ -16,9 +16,12 @@ class MediaRepository:
 
         return self.database.retrieve("latest-media")
 
+    def is_new(media_id):
+        print "media is new? %s" % (self.database.retrieve(media_id))
+        return self.database.retrieve(media_id).status == "new"
+
     def new_media_ids(self):
-        def is_new(media_id): self.database.retrieve(media_id).status == "new"
-        return filter(is_new, self.database.keys());
+        return filter(self.is_new, self.database.keys());
 
     def has_available_media(self):
         return len(self.new_media_ids()) > 0
