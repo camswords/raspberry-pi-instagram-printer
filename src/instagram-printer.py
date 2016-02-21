@@ -7,7 +7,6 @@ from lib.power import Power
 from lib.support_team import SupportTeam
 import signal
 import traceback
-import sys
 import time
 
 class InstagramPrinter:
@@ -50,7 +49,6 @@ class InstagramPrinter:
                 SupportTeam.notify("failure - uncaught error, %s. skipping print" % (exceptiondata[-1]))
 
             finally:
-                sys.stdout.flush()
                 time.sleep(5)
 
     def stop(self, signum, frame):
