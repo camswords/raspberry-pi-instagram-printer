@@ -3,27 +3,33 @@ import os
 
 class Database:
 
-    def __init__(self):
+    def with_db(self, callable):
         directory = os.path.dirname(os.path.abspath(__file__))
-        self.database = shelve.open(directory + "/../../database/database")
+        db = shelve.open(directory + "/../../database/database")
+        result = callable(db)
+        db.close()
+        return result
 
     def has_key(self, key):
-        return self.database.has_key(key)
+        return self.with_db(lambda db: db.has_key(key))
 
     def keys(self):
-        return self.database.keys()
+        return self.with_db(lambda db: db.keys())
 
     def save(self, key, status):
-        self.database[key] = status
+        self.with_db(lambda db: db[key] = status)
 
     def retrieve(self, key):
-        return self.database[key];
+        return self.with_db(lambda db: db[key])
 
     def __str__(self):
-        output = "database contents:\n"
-        keys = self.database.keys()
+        def to_str(db):
+            output = "database contents:\n"
+            keys = db.keys()
 
-        for key in keys:
-            output += "   %s: %s\n" % (key, self.database[key])
+            for key in keys:
+                output += "   %s: %s\n" % (key, db[key])
 
-        return output
+            return output
+
+        return self.with_db(to_str)
