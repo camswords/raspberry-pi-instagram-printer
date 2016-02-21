@@ -16,7 +16,7 @@ class MediaRepository:
 
         return self.database.retrieve("latest-media")
 
-    def is_new(media_id):
+    def is_new(self, media_id):
         print "media is new? %s" % (self.database.retrieve(media_id))
         return self.database.retrieve(media_id).status == "new"
 
