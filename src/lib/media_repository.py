@@ -17,16 +17,12 @@ class MediaRepository:
         return self.database.retrieve("latest-media")
 
     def is_new(self, media_id):
-        SupportTeam.notify("media is new? %s" % (self.database.retrieve(media_id)))
-        return self.database.retrieve(media_id).status == "new"
+        return self.database.retrieve(media_id)["status"] == "new"
 
     def new_media_ids(self):
-        def not_latest(key): key != "latest-media"
+        def not_latest(key): return key != "latest-media"
         media_ids = filter(not_latest, self.database.keys())
-        foo = filter(self.is_new, media_ids)
-        SupportTeam.notify("new media ids %s" % foo)
-
-        return foo
+        return filter(self.is_new, media_ids)
 
     def has_available_media(self):
         return len(self.new_media_ids()) > 0
