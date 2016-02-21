@@ -21,7 +21,9 @@ class MediaRepository:
         return self.database.retrieve(media_id).status == "new"
 
     def new_media_ids(self):
-        return filter(self.is_new, self.database.keys());
+        def not_latest(key): key != "latest-media"
+        media_ids = filter(not_latest, self.database.keys())
+        return filter(self.is_new, media_ids)
 
     def has_available_media(self):
         return len(self.new_media_ids()) > 0
