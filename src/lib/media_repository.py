@@ -16,20 +16,9 @@ class MediaRepository:
 
         return self.database.retrieve("latest-media")
 
-    def update_new_ids(self, media):
-        new_media = self.new_media_ids()
-        new_media.insert(0, media.id)
-        self.database.save("new-media", new_media)
-
-    def update_non_new_id(self, media):
-        def not_media(this_media_id): return this_media_id != media.id
-        self.database.save("new-media", filter(not_media, self.new_media_ids()))
-
     def new_media_ids(self):
-        if not self.database.has_key("new-media"):
-            return []
-
-        return self.database.retrieve("new-media")
+        def is_new(media_id): self.database.retrieve(media_id).status == "new"
+        return filter(is_new, self.database.keys());
 
     def has_available_media(self):
         return len(self.new_media_ids()) > 0
@@ -47,11 +36,9 @@ class MediaRepository:
             return media
 
         self.update_latest(media)
-        self.update_new_ids(media)
         self.save(media)
 
     def update(self, media):
-        self.update_non_new_id(media)
         self.save(media)
 
     def save(self, media):

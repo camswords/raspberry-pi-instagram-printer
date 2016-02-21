@@ -10,6 +10,9 @@ class Database:
     def has_key(self, key):
         return self.database.has_key(key)
 
+    def keys(self):
+        return self.database.keys()
+
     def save(self, key, status):
         self.database[key] = status
 
