@@ -9,9 +9,9 @@ from timeout import timeout
 class MediaServer:
 
     def __init__(self, media_repository):
-        self.client_id = client_id=os.environ['INSTAGRAM_CLIENT_ID']
-        self.client_secret = os.environ['INSTAGRAM_CLIENT_SECRET']
-        self.hashtag = os.environ['INSTAGRAM_HASHTAG']
+        self.client_id = client_id=os.environ["INSTAGRAM_CLIENT_ID"]
+        self.client_secret = os.environ["INSTAGRAM_CLIENT_SECRET"]
+        self.hashtag = os.environ["INSTAGRAM_HASHTAG"]
 
         self.api = InstagramAPI(client_id = self.client_id, client_secret = self.client_secret)
         self.media_repository = media_repository

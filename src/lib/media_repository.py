@@ -65,3 +65,6 @@ class MediaRepository:
 
         marshalled_media = self.database.retrieve(media_id)
         return Media(id = marshalled_media["id"], url = marshalled_media["url"], status = marshalled_media["status"])
+
+    def __str__(self):
+        return "media repository has %s" % self.database

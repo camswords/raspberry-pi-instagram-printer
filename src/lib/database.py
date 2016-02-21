@@ -15,3 +15,12 @@ class Database:
 
     def retrieve(self, key):
         return self.database[key];
+
+    def __str__(self):
+        output = "database contents:\n"
+        keys = self.database.keys()
+
+        for key in keys:
+            output += "   %s: %s\n" % (key, self.database[key])
+
+        return output

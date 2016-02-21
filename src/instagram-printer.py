@@ -8,6 +8,7 @@ from lib.support_team import SupportTeam
 import signal
 import traceback
 import time
+import os
 
 class InstagramPrinter:
 
@@ -49,6 +50,9 @@ class InstagramPrinter:
                 SupportTeam.notify("failure - uncaught error, %s. skipping print" % (exceptiondata[-1]))
 
             finally:
+                if "DEBUG" in os.environ and os.environ["DEBUG"] is "true":
+                    SupportTeam.notify("debug: end loop, %s" % self.media_repository)
+
                 time.sleep(5)
 
     def stop(self, signum, frame):
