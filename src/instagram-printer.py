@@ -56,7 +56,9 @@ class InstagramPrinter:
                 time.sleep(5)
 
     def stop(self, signum, frame):
+        SupportTeam.notify("shutdown hook received, will stop at the end of print loop")
         self.running = False
 
 if __name__ == '__main__':
+    SupportTeam.notify("startup hook received")
     InstagramPrinter().start()
