@@ -29,9 +29,6 @@ class InstagramPrinter:
             SupportTeam.notify("using system default printer %s" % self.system.printer().printer_name)
 
         while self.running:
-            if "DEBUG" in os.environ and os.environ["DEBUG"] == "true":
-                SupportTeam.notify("debug: start loop, %s" % self.media_repository)
-
             try:
                 if not self.system.has_printer():
                     SupportTeam.notify("failure - system has no default printer, skipping print")
@@ -48,7 +45,7 @@ class InstagramPrinter:
 
             except:
                 exceptiondata = traceback.format_exc().splitlines()
-                SupportTeam.notify("failure - uncaught error, %s. skipping print" % (exceptiondata))
+                SupportTeam.notify("failure - uncaught error, %s. skipping print" % (exceptiondata[-1]))
 
             finally:
                 if "DEBUG" in os.environ and os.environ["DEBUG"] == "true":

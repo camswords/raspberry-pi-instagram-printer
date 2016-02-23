@@ -15,7 +15,7 @@ class Media:
         check_call(["rm", "-rf", "/tmp/image-downloading.jpg"])
         check_call(["wget", self.url, "--quiet", "-O", "/tmp/image-downloading.jpg"])
         check_call(["cp", "-f", "/tmp/image-downloading.jpg", "/tmp/image.jpg"])
-        SupportTeam.notify("%s - saved to file system at /tmp/image.jpg" % self.id)
+        SupportTeam.notify("%s - downloaded to /tmp/image.jpg" % self.id)
         return FileSystemImage(self, "/tmp/image.jpg")
 
     def __str__(self):
