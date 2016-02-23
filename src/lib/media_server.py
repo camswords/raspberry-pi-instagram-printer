@@ -19,7 +19,7 @@ class MediaServer:
     @timeout(30)
     def fetch(self):
         SupportTeam.notify("fetching latest media from instagram [#%s]" % self.hashtag)
-        SupportTeam.notify("latest media id %s" % self.media_repository.latest().id)
+        SupportTeam.notify("latest media id %s" % self.media_repository.latest_media_id())
         latest_media_id = self.media_repository.latest_media_id()
         recent_media = self.api.tag_recent_media(5, latest_media_id, self.hashtag)
 
