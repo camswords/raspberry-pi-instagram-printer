@@ -39,6 +39,9 @@ class MediaRepository:
         self.database.save("latest-media", media.id)
         self.save(media)
 
+    def has_media_with_id(self, media_id):
+        return self.database.has_key(media.id)
+
     def update(self, media):
         self.save(media)
 

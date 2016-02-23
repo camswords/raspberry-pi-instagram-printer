@@ -18,15 +18,15 @@ class MediaServer:
 
     @timeout(30)
     def fetch(self):
-        SupportTeam.notify("fetching latest media from instagram [#%s]" % self.hashtag)
-        SupportTeam.notify("latest media id %s" % self.media_repository.latest_media_id())
+        SupportTeam.notify("finding instagram media for #%s" % self.hashtag)
         latest_media_id = self.media_repository.latest_media_id()
         recent_media = self.api.tag_recent_media(5, latest_media_id, self.hashtag)
 
         for instagram_media in recent_media[0]:
-            media = Media(id = instagram_media.id, url = str(instagram_media.images['standard_resolution'].url), status = "new")
-            SupportTeam.notify("%s - fetched from instagram, url is %s" % (media.id, media.url))
-            self.media_repository.create(media)
+            if not self.media_repository.has_media_with_id(instagram_media.id):
+                media = Media(id = instagram_media.id, url = str(instagram_media.images['standard_resolution'].url), status = "new")
+                SupportTeam.notify("%s - new media %s" % (media.id, media.url))
+                self.media_repository.create(media)
 
     def next(self):
         while not self.media_repository.has_available_media():
