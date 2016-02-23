@@ -1,5 +1,6 @@
 import shelve
 import os
+from support_team import SupportTeam
 
 class Database:
 
@@ -15,7 +16,6 @@ class Database:
         db = shelve.open(directory + "/../../database/database")
         db[key] = callable(db)
         db.close()
-        return result
 
     def has_key(self, key):
         return self.query_db(lambda db: db.has_key(key))
@@ -24,6 +24,7 @@ class Database:
         return self.query_db(lambda db: db.keys())
 
     def save(self, key, status):
+        SupportTeam.notify("*** saving %s with status %s ***" % (key, status))
         self.assign_to_db(key, lambda db: status)
 
     def retrieve(self, key):
@@ -39,7 +40,7 @@ class Database:
                     output += "   %s: %s\n" % (key, db[key])
                 else:
                     output += "   %s: %s\n" % (key, db[key]["status"])
-                    
+
             return output
 
         return self.query_db(to_str)
