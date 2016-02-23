@@ -28,7 +28,7 @@ class InstagramPrinter:
         if self.system.has_printer():
             SupportTeam.notify("using system default printer %s" % self.system.printer().printer_name)
 
-        while self.running == True:
+        while self.running:
             if "DEBUG" in os.environ and os.environ["DEBUG"] == "true":
                 SupportTeam.notify("debug: start loop, %s" % self.media_repository)
 
@@ -42,7 +42,7 @@ class InstagramPrinter:
 
                 media = self.media_server.next()
 
-                if media and self.running === True:
+                if media and self.running:
                     self.system.printer().send(media.download())
                     self.media_repository.update_media_status(media, "printed")
 
