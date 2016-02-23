@@ -40,8 +40,10 @@ class InstagramPrinter:
                 media = self.media_server.next()
 
                 if media and self.running:
+                    SupportTeam.notify("%s - preparing to print" % media.id)
                     self.system.printer().send(media.download())
                     self.media_repository.update_media_status(media, "printed")
+                    SupportTeam.notify("%s - print complete.")
 
             except:
                 exceptiondata = traceback.format_exc().splitlines()
