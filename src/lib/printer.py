@@ -49,7 +49,7 @@ class Printer:
         job_id = self.connection.printFile(self.printer_name, saved_image.file_path, "", {})
 
         # it takes about a minute to print an image. 1.5 mins is conservative.
-        time.sleep(90)
+        time.sleep(5)
 
         SupportTeam.notify("%s - updating status to printed" % saved_image.media.id)
         saved_image.update_media_as_printed()

@@ -13,17 +13,17 @@ class Power:
         time.sleep(1)
 
     def cycle_printer(self):
-        SupportTeam.notify("recover printer - turning printer off (5 secs)")
-        self.turn_off()
-        self.turn_off()
-        self.turn_off()
-        self.turn_off()
+        # SupportTeam.notify("recover printer - turning printer off (5 secs)")
+        # self.turn_off()
+        # self.turn_off()
+        # self.turn_off()
+        # self.turn_off()
+        # time.sleep(5)
+        #
+        # SupportTeam.notify("recover printer - turning printer back on (15 secs)")
+        # # turn on
+        # self.turn_on()
+        # self.turn_on()
+        # self.turn_on()
+        # self.turn_on()
         time.sleep(5)
-
-        SupportTeam.notify("recover printer - turning printer back on (15 secs)")
-        # turn on
-        self.turn_on()
-        self.turn_on()
-        self.turn_on()
-        self.turn_on()
-        time.sleep(15)
