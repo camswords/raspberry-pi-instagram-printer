@@ -35,11 +35,11 @@ class Database:
             keys = db.keys()
 
             for key in keys:
-                if "url" in db[key]:
-                    output += "   %s: %s\n" % (key, db[key]["status"])
-                else:
+                if "latest-media" == key:
                     output += "   %s: %s\n" % (key, db[key])
-
+                else:
+                    output += "   %s: %s\n" % (key, db[key]["status"])
+                    
             return output
 
         return self.query_db(to_str)
