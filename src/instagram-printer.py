@@ -43,7 +43,7 @@ class InstagramPrinter:
                     self.system.printer().send(media.download())
                     self.media_repository.update_media_status(media, "printed")
                 else:
-                    SupportTeam.notify("nothing new to print.")    
+                    SupportTeam.notify("nothing new to print.")
 
             except:
                 exceptiondata = traceback.format_exc().splitlines()
@@ -54,6 +54,8 @@ class InstagramPrinter:
                     SupportTeam.notify("debug: end loop, %s" % self.media_repository)
 
                 time.sleep(5)
+
+        SupportTeam.notify("safely exiting process.")
 
     def stop(self, signum, frame):
         SupportTeam.notify("shutdown hook received, will stop at the end of print loop")
