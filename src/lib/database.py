@@ -35,10 +35,7 @@ class Database:
             keys = db.keys()
 
             for key in keys:
-                if "latest-media" == key:
-                    output += "   %s: %s\n" % (key, db[key])
-                else:
-                    output += "   %s: %s\n" % (key, db[key]["status"])
+                output += "   %s: %s\n" % (key, db[key])
 
             return output
 
