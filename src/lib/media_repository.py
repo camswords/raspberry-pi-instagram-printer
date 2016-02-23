@@ -9,7 +9,7 @@ class MediaRepository:
 
     def latest_media_id(self):
         if not self.database.has_key("latest-media"):
-            return Media.EMPTY()
+            return "0"
 
         return self.database.retrieve("latest-media")
 
@@ -42,7 +42,8 @@ class MediaRepository:
     def has_media_with_id(self, media_id):
         return self.database.has_key(media.id)
 
-    def update(self, media):
+    def update_media_status(self, media, status):
+        media.status = status
         self.save(media)
 
     def save(self, media):

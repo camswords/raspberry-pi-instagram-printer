@@ -2,8 +2,6 @@
 from lib.system import System
 from lib.media_repository import MediaRepository
 from lib.media_server import MediaServer
-from lib.saved_images import SavedImages
-from lib.power import Power
 from lib.support_team import SupportTeam
 import signal
 import traceback
@@ -20,8 +18,6 @@ class InstagramPrinter:
         self.system = System()
         self.media_repository = MediaRepository()
         self.media_server = MediaServer(self.media_repository)
-        self.saved_images = SavedImages(self.media_server, self.media_repository)
-        self.power = Power()
 
     def start(self):
         self.running = True
@@ -44,9 +40,11 @@ class InstagramPrinter:
                     time.sleep(20)
                     continue
 
-                self.system.printer().cancel_all_jobs()
-                self.power.cycle_printer()
-                self.system.printer().send(self.saved_images.next())
+                media = self.media_server.next()
+
+                if media and self.running === True:
+                    self.system.printer().send(media.download())
+                    self.media_repository.update_media_status(media, "printed")
 
             except:
                 exceptiondata = traceback.format_exc().splitlines()

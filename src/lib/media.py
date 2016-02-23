@@ -1,3 +1,7 @@
+from file_system_image import FileSystemImage
+from support_team import SupportTeam
+from timeout import timeout
+from subprocess import check_call
 
 class Media:
 
@@ -6,15 +10,13 @@ class Media:
         self.url = url
         self.status = status
 
-    def is_new(self):
-        return self.status == "new"
-
-    def as_printed(self):
-        return Media(id = self.id, url = self.url, status = "sent-to-print")
+    @timeout(30)
+    def download(self):
+        check_call(["rm", "-rf", "/tmp/image-downloading.jpg"])
+        check_call(["wget", self.url, "--quiet", "-O", "/tmp/image-downloading.jpg"])
+        check_call(["cp", "-f", "/tmp/image-downloading.jpg", "/tmp/image.jpg"])
+        SupportTeam.notify("%s - saved to file system at /tmp/image.jpg" % self.id)
+        return FileSystemImage(self, "/tmp/image.jpg")
 
     def __str__(self):
         return "media(%s, %s, %s)" % (self.id, self.status, self.url)
-
-    @staticmethod
-    def EMPTY():
-        return Media(id = "0", url = "http://not-found", status = "new")
