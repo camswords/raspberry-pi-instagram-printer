@@ -40,7 +40,7 @@ class MediaRepository:
         self.save(media)
 
     def has_media_with_id(self, media_id):
-        return self.database.has_key(media.id)
+        return self.database.has_key(media_id)
 
     def update_media_status(self, media, status):
         media.status = status
