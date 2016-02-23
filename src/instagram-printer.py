@@ -48,7 +48,7 @@ class InstagramPrinter:
 
             except:
                 exceptiondata = traceback.format_exc().splitlines()
-                SupportTeam.notify("failure - uncaught error, %s. skipping print" % (exceptiondata[-1]))
+                SupportTeam.notify("failure - uncaught error, %s. skipping print" % (exceptiondata))
 
             finally:
                 if "DEBUG" in os.environ and os.environ["DEBUG"] == "true":
