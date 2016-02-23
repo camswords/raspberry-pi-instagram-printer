@@ -7,10 +7,7 @@ class MediaRepository:
     def __init__(self):
         self.database = Database()
 
-    def update_latest(self, media):
-        self.database.save("latest-media", media)
-
-    def latest(self):
+    def latest_media_id(self):
         if not self.database.has_key("latest-media"):
             return Media.EMPTY()
 
@@ -39,7 +36,7 @@ class MediaRepository:
         if self.database.has_key(media.id):
             return media
 
-        self.update_latest(media)
+        self.database.save("latest-media", media.id)
         self.save(media)
 
     def update(self, media):

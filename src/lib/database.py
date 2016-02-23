@@ -28,7 +28,10 @@ class Database:
             keys = db.keys()
 
             for key in keys:
-                output += "   %s: %s\n" % (key, db[key])
+                if "url" in db[key]:
+                    output += "   %s: %s\n" % (key, db[key]["status"])
+                else:
+                    output += "   %s: %s\n" % (key, db[key])
 
             return output
 
