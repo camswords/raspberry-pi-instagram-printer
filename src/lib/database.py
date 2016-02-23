@@ -24,7 +24,6 @@ class Database:
         return self.query_db(lambda db: db.keys())
 
     def save(self, key, status):
-        SupportTeam.notify("*** saving %s with status %s ***" % (key, status))
         self.assign_to_db(key, lambda db: status)
 
     def retrieve(self, key):
